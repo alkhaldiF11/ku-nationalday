@@ -25,6 +25,7 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
     timeout: 120_000,
-    env: {DATA_DIR: ".e2e-data"},
+    // A throwaway database with the demo fixtures, wiped on every run.
+    env: {DATA_DIR: ".e2e-data", SEED_DEMO_DATA: "true"},
   },
 });

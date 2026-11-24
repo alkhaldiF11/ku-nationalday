@@ -4,7 +4,7 @@ For the event team running National Day on the day.
 
 ## Before the event (a week ahead)
 
-1. **Fresh start.** Deploy (see README → Production on Vercel) with `SEED_DEMO_DATA=false` and a strong `ADMIN_INITIAL_PASSWORD`, then open the site once so it creates the database tables.
+1. **Fresh start.** Deploy (see README → Production on Vercel) with a strong `ADMIN_INITIAL_PASSWORD`, then open the site once so it creates the database tables.
 2. **Sign in as admin** at `/staff/login`. Then:
    - **Event settings:** date, venue, contact details, and the **university email domains** accepted for student and staff sign-ups (default `ku.edu.bh`, subdomains included).
    - **Registrations:** guests apply online at `/register`. Check **Staff → Registrations** regularly (the menu shows how many are waiting) and approve or reject each application. Approving gives every person — each child in a family too — their own Guest ID.

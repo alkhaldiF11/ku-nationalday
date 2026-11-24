@@ -54,23 +54,18 @@ In production the same code uses two hosted services instead of the local folder
 1. Push the project to a GitHub repository and import it in Vercel (**Add New → Project**).
 2. In the Vercel project: **Storage → Create → Blob**, access **Private**, and connect it to the project. This adds `BLOB_READ_WRITE_TOKEN`.
 3. Create a Turso database (Turso dashboard, or **Storage → Marketplace → Turso** in Vercel, which adds both Turso variables). Put it in the region closest to the Vercel functions, and set the function region in **Settings → Functions** to match.
-4. Set `ADMIN_INITIAL_PASSWORD` (and `SEED_DEMO_DATA=false` for a clean event) before the first visit, then deploy.
+4. Set `ADMIN_INITIAL_PASSWORD` before the first visit, then deploy.
 5. To bring over existing local data: `vercel env pull .env.vercel`, then `node --env-file=.env.vercel scripts/migrate-to-cloud.mjs --replace`. Keep the keys in `.env.vercel`, not `.env.local`: Next.js loads `.env.local` automatically, so local runs and tests would write to the live database. It copies every table to Turso (checking row counts) and every photo to Blob. Sign-in sessions aren't copied.
 
 Photo uploads are shrunk in the browser first (Vercel accepts at most 4.5 MB per request), and every Blob file is private: the site's own routes decide who may see each photo.
 
 Self-hosting also works: `npm run build && npm start` on any Node server, with or without the variables above.
 
-### Demo accounts (seeded)
+### First sign-in
 
-| Who | Sign in at | Username / ID | Password |
-|---|---|---|---|
-| Administrator | `/staff/login` | `admin` | `Admin@2026` |
-| Reception | `/staff/login` | `reception` | `Reception@2026` |
-| IT Desk | `/staff/login` | `itdesk` | `ITDesk@2026` |
-| Guests | `/login` | `G-1001`, `G-1002`, `G-1003` | `Guest@2026` |
+A new database starts empty apart from one administrator: sign in at `/staff/login` as `admin` with the password from `ADMIN_INITIAL_PASSWORD` (or `Admin@2026` when it isn't set), then create the desk staff accounts under **Staff → Staff accounts**. There is no demo data.
 
-Change these before a real event, or start with `SEED_DEMO_DATA=false` and `ADMIN_INITIAL_PASSWORD` set.
+The automated tests seed their own sample guests and staff (`SEED_DEMO_DATA=true`) in throwaway databases; that never touches a real one.
 
 ## Tests
 

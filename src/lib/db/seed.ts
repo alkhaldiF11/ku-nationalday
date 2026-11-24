@@ -20,7 +20,10 @@ export async function seedDatabase() {
     return;
   }
 
-  const demo = process.env.SEED_DEMO_DATA !== "false";
+  // Real by default: a new database gets only the administrator account. Demo guests, staff,
+  // announcements and gallery art are opt-in (SEED_DEMO_DATA=true) — the automated tests use them
+  // in their own throwaway databases.
+  const demo = process.env.SEED_DEMO_DATA === "true";
   const now = new Date().toISOString();
   // Demo gallery art is stored before the transaction (storage is a separate system).
   const gallery = demo ? await storeSeedGallery() : [];

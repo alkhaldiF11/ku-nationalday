@@ -12,6 +12,8 @@ export default defineConfig({
     include: ["tests/unit/**/*.test.ts"],
     env: {
       DATABASE_PATH: ":memory:",
+      // Tests run against the demo fixtures (sample guests, staff and results).
+      SEED_DEMO_DATA: "true",
       DATA_DIR: path.join(os.tmpdir(), "nationalday-vitest"),
     },
   },
